@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   Put,
+  UseFilters,
   UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
@@ -17,7 +18,9 @@ import { AuthGuard } from 'src/guards/auth/auth.guard';
 import { Roles } from 'src/guards/roles/roles.decorator';
 import { Role } from 'src/guards/roles/roles.enums';
 import { RolesGuard } from 'src/guards/roles/roles.guard';
+import { HttpExceptionFilter } from 'src/filter/http-exception/http-exception.filter';
 @Controller('user')
+@UseFilters(HttpExceptionFilter)
 export class UserController {
   constructor(private readonly userService: UserService) {}
   @Get()
