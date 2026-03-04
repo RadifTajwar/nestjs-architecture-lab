@@ -7,16 +7,19 @@ import {
   Patch,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './interface/userInterface';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserCreatePipe } from 'src/common/pipe/user-create-pipe/user-create-pipe.pipe';
+import { AuthGuard } from 'src/guards/auth/auth.guard';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
   @Get()
+  @UseGuards(AuthGuard)
   getAllStudents(): User[] {
     return this.userService.getAllStudents();
   }
