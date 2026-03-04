@@ -14,12 +14,16 @@ import { User } from './interface/userInterface';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserCreatePipe } from 'src/common/pipe/user-create-pipe/user-create-pipe.pipe';
 import { AuthGuard } from 'src/guards/auth/auth.guard';
-
+import { Roles } from 'src/guards/roles/roles.decorator';
+import { Role } from 'src/guards/roles/roles.enums';
+import { RolesGuard } from 'src/guards/roles/roles.guard';
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
   @Get()
+  @Roles(Role.ADMIN)
   @UseGuards(AuthGuard)
+  @UseGuards(RolesGuard)
   getAllStudents(): User[] {
     return this.userService.getAllStudents();
   }
